@@ -77,12 +77,14 @@ jobs:
       - name: Run UI Tests
         shell: pwsh
         run: |
+          $browser = $env:BROWSER
+          (Get-Content .\Tests.runsettings) -replace 'value=".*?"', "value=`"$browser`"" | Set-Content .\test.runsettings
           dotnet test ./LocatorsTests/Tests.csproj `
             --filter "Category=UITests" `
             --logger "trx;LogFileName=UiTests.trx" `
             --no-restore `
             --no-build `
-            -- TestRunParameters.Parameter(name="browser",value="$env:BROWSER")
+            --settings ./test.runsettings
 
       - name: Upload UI Test Resuls
         uses: actions/upload-artifact@v4
