@@ -75,13 +75,14 @@ jobs:
         run: dotnet build AutomatedTestingPracticalTaskEPAM.sln --configuration Debug
 
       - name: Run UI Tests
+        shell: pwsh
         run: |
-          dotnet test ./LocatorsTests/Tests.csproj 
-          --filter "Category=UITests" 
-          --logger "trx;LogFileName=ApiTests.trx" 
-          --no-restore 
-          --no-build 
-          -- TestRunParameters.Parameter\(name=\"browser\",value=\"$BROWSER\"\)
+          dotnet test ./LocatorsTests/Tests.csproj `
+            --filter "Category=UITests" `
+            --logger "trx;LogFileName=UiTests.trx" `
+            --no-restore `
+            --no-build `
+            -- TestRunParameters.Parameter(name="browser",value="$env:BROWSER")
 
       - name: Upload UI Test Resuls
         uses: actions/upload-artifact@v4
