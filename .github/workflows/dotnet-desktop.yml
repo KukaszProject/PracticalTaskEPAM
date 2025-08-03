@@ -78,7 +78,7 @@ jobs:
         shell: pwsh
         run: |
           $browser = $env:BROWSER
-          (Get-Content .\test.runsettings) -replace 'value=".*?"', "value=`"$browser`"" | Set-Content .\test.runsettings
+          (Get-Content .\LocatorsTests\test.runsettings) -replace 'value=".*?"', "value=`"$browser`"" | Set-Content .\test.runsettings
           dotnet test ./LocatorsTests/Tests.csproj `
             --filter "Category=UITests" `
             --logger "trx;LogFileName=UiTests.trx" `
