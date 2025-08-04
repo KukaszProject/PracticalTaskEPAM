@@ -1,0 +1,100 @@
+name: API and UI Test Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Browser for UI tests'
+        required: true
+        default: 'chrome'
+        type: choice
+        options:
+          - chrome
+          - firefox
+  pull_request:
+    branches:
+      - CI-CDSolution
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+
+      
+  api-tests:
+    name: Run API Tests
+    runs-on: windows-latest
+    env:
+      BROWSER: ${{ github.event.inputs.browser }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore AutomatedTestingPracticalTaskEPAM.sln
+
+      - name: Build the solution
+        run: dotnet build AutomatedTestingPracticalTaskEPAM.sln --configuration Debug
+
+      - name: Run API Tests
+        run: |
+          dotnet test ./LocatorsTests/Tests.csproj --filter "Category=APITests" --logger "trx;LogFileName=ApiTests.trx" --no-restore --no-build
+        continue-on-error: true
+
+      - name: Upload API Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: API-Test-Logs
+          path: ./LocatorsTests/bin/Debug/net8.0/Logs
+
+  ui-tests:
+    name: Run UI Tests
+    runs-on: windows-latest
+    needs: api-tests
+    env:
+      BROWSER: ${{ github.event.inputs.browser }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore AutomatedTestingPracticalTaskEPAM.sln
+        
+      - name: Build the solution
+        run: dotnet build AutomatedTestingPracticalTaskEPAM.sln --configuration Debug
+
+      - name: Run UI Tests
+        shell: pwsh
+        run: |
+          $browser = $env:BROWSER
+          (Get-Content .\LocatorsTests\test.runsettings) -replace 'value=".*?"', "value=`"$browser`"" | Set-Content .\test.runsettings
+          dotnet test ./LocatorsTests/Tests.csproj `
+            --filter "Category=UITests" `
+            --logger "trx;LogFileName=UiTests.trx" `
+            --no-restore `
+            --no-build `
+            --settings ./test.runsettings
+
+      - name: Upload UI Test Resuls
+        uses: actions/upload-artifact@v4
+        with:
+          name: UI-Test-Logs
+          path: ./LocatorsTests/bin/Debug/net8.0/Logs
+
+      - name: Upload Screenshots (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: UI-Screenshots
+          path: ./LocatorsTests/bin/Debug/net8.0/Screenshots
