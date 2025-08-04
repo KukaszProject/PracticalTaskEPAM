@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace Tests.API
 {
     [TestFixture]
-    [Category("API")]
+    [Category("APITests")]
     [Parallelizable(ParallelScope.All)]
     public class ApiTests : TestBaseApi
     {

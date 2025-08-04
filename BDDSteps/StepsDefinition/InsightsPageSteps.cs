@@ -1,11 +1,13 @@
 ﻿using Business.Pages;
 using Core.Drivers;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
 
 namespace BDDSteps.StepsDefinition
 {
     [Binding]
+    [Category("UITests")]
     public class InsightsPageSteps
     {
         private IWebDriver Driver;

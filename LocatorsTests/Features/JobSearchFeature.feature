@@ -4,7 +4,7 @@ As a job seeker, I want to search for remote jobs using specific keywords so tha
 Background: 
 	Given I am on the EPAM home page
 
-@smoke
+@UITests
 Scenario Outline: Searching for remote job opportunities using specific keywords
 	Given I navigate to the Careers Page
 	When I select remote work option

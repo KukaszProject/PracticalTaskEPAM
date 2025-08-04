@@ -7,6 +7,7 @@ using Reqnroll;
 namespace BDDSteps.StepsDefinition
 {
     [Binding]
+    [Category("UITests")]
     public class ServicesPageSteps
     {
         private IWebDriver Driver;

@@ -4,7 +4,7 @@ As a user, I want to navigate to specific service categories under the Artificia
 Background:
 	Given I am on the EPAM home page
 
-  @smoke
+  @UITests
   Scenario: Navigate to Generative AI service category by hovering navigation bar and validate content
     Given I open Services navigation bar
     When I click on the "<ServiceCategory>" service category

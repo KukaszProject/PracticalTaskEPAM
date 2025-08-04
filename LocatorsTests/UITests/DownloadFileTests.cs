@@ -6,6 +6,7 @@ namespace Tests.UITests
 {
     public class DownloadFileTests : TestBase
     {
+        [Category("UITests")]
         [TestCase("EPAM_Corporate_Overview*.pdf")]
         public void DownloadFileTest(string fileName)
         {

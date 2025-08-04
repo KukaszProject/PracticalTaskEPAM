@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace BDDSteps.StepsDefinition
 {
     [Binding]
+    [Category("UITests")]
     public class AboutPageSteps
     {
         private IWebDriver Driver;

@@ -4,7 +4,7 @@ As a user, I want to perform a global search from the EPAM homepage so that I ca
 Background: 
 	Given I am on the EPAM home page
 
-@smoke
+@UITests
 Scenario Outline: Display relevant results for various search keywords
 	Given I navigate to the Global Search
 	When I enter "<keyword>" in the search field

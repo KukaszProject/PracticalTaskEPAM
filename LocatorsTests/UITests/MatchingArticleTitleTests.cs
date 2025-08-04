@@ -5,6 +5,7 @@ namespace Tests.UITests
 {
     public class MatchingArticleTitleTests : TestBase
     {
+        [Category("UITests")]
         [Test]
         public void ValidateMatchingTitle()
         {

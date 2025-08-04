@@ -5,6 +5,7 @@ namespace Tests.UITests
 {
     public class JobSearchTests : TestBase
     {
+        [Category("UITests")]
         [TestCase(".NET", "All Locations")]
         [TestCase("JavaScript", "All Locations")]
         public void ValidateJobSearch(string keyword, string location)

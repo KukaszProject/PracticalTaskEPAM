@@ -4,7 +4,7 @@ As a user, I want to verify that the article title displayed matches the expecte
 Background: 
 	Given I am on the EPAM home page
 
-@smoke
+@UITests
 Scenario: Verify article title after navigating through featured articles
 	Given I navigate to the Insights Page
 	When I click on the arrow <number> times

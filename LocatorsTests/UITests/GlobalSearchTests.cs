@@ -6,6 +6,7 @@ namespace Tests.UITests
     [TestFixture]
     public class GlobalSearchTests : TestBase
     {
+        [Category("UITests")]
         [TestCase("BLOCKCHAIN")]
         [TestCase("Cloud")]
         [TestCase("Automation")]

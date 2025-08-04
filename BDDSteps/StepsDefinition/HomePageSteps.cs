@@ -3,10 +3,12 @@ using Business.Pages;
 using OpenQA.Selenium;
 using Reqnroll;
 using Core.Drivers;
+using NUnit.Framework;
 
 namespace BDDSteps.StepsDefinition
 {
     [Binding]
+    [Category("UITests")]
     public class HomePageSteps
     {
         private IWebDriver Driver;
